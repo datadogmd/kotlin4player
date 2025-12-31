@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.kotlin4player"
         minSdk = 22
-        targetSdk = 22
+        targetSdk = 22 // Git would prefer SDK33 or higher
         versionCode = 1
         versionName = "1.0"
     }
