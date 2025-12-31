@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var playerZones: List<View>
     private lateinit var timeViews: List<TextView>
     private lateinit var startButton: Button
+    private lateinit var btnQuit: Button
+    private lateinit var btnReset: Button
     private lateinit var statusText: TextView
 
     private var playerTimesMillis = LongArray(4) { DEFAULT_TIME_MINUTES * 60_000L }
@@ -55,8 +57,20 @@ class MainActivity : AppCompatActivity() {
             if (!isGameRunning && !isGameFinished) {
                 showPreGameDialog()
             }
+            startButton.visibility=View.GONE
+            btnReset.visibility=View.VISIBLE
+            btnQuit.visibility=View.VISIBLE
         }
 
+        btnReset.setOnClickListener {
+            if (isGameRunning || isGameFinished) {
+                showPreGameDialog()
+            }
+        }
+
+        btnQuit.setOnClickListener {
+            finishAndRemoveTask()
+        }
         updateAllTimeTexts()
     }
 
@@ -74,7 +88,10 @@ class MainActivity : AppCompatActivity() {
         playerZones = listOf(p1Zone, p2Zone, p3Zone, p4Zone)
         timeViews = listOf(p1Time, p2Time, p3Time, p4Time)
 
+        btnQuit = findViewById(R.id.btnQuit)
+        btnReset = findViewById(R.id.btnReset)
         startButton = findViewById(R.id.startButton)
+
         statusText = findViewById(R.id.statusText)
     }
 
