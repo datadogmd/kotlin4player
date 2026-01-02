@@ -13,7 +13,7 @@
             android:id="@+id/configTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pre-game configuration"
+            android:text="@string/pre_game_configuration"
             android:textStyle="bold"
             android:textSize="18sp"
             android:layout_marginBottom="8dp" />
@@ -22,20 +22,20 @@
             android:id="@+id/timeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time per player (minutes)" />
+            android:text="@string/time_per_player_minutes" />
 
         <EditText
             android:id="@+id/timeMinutesInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="10"
+            android:hint="@string/default_game_time_minutes"
             android:layout_marginBottom="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose color for each player:" />
+            android:text="@string/choose_color_for_each_player" />
 
         <!-- Player color rows -->
 
@@ -49,7 +49,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player 1" />
+                android:text="@string/player_1" />
 
             <RadioGroup
                 android:id="@+id/player1ColorGroup"
@@ -110,7 +110,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player 2"
+                android:text="@string/player_2"
                 android:layout_marginTop="8dp" />
 
             <RadioGroup
@@ -172,7 +172,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player 3"
+                android:text="@string/player_3"
                 android:layout_marginTop="8dp" />
 
             <RadioGroup
@@ -234,7 +234,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Player 4"
+                android:text="@string/player_4"
                 android:layout_marginTop="8dp" />
 
             <RadioGroup
@@ -294,6 +294,7 @@
         </LinearLayout>
 
         <LinearLayout
+            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -302,15 +303,17 @@
 
             <Button
                 android:id="@+id/cancelButton"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel" />
+                android:text="@string/cancel" />
 
             <Button
                 android:id="@+id/okButton"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OK"
+                android:text="@string/ok"
                 android:layout_marginStart="8dp" />
         </LinearLayout>
 

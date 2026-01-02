@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">kotlin4player</string>
+    <string name="pre_game_configuration">Pre-game configuration</string>
+    <string name="time_per_player_minutes">Time per player (minutes)</string>
+    <string name="choose_color_for_each_player">Choose color for each player:</string>
+    <string name="player_1">Player 1</string>
+    <string name="player_2">Player 2</string>
+    <string name="player_3">Player 3</string>
+    <string name="player_4">Player 4</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="default_game_time_minutes">10</string>
 </resources>
