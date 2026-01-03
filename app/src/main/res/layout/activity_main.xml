@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:rotation="180"
-            android:text="10:00"
+            android:text="@string/default_game_time_minutes"
             android:textColor="@android:color/white"
             android:textSize="32sp" />
 
@@ -157,20 +157,20 @@
             android:id="@+id/configButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Configure" />
+            android:text="@string/config" />
         <Button
             android:id="@+id/btnReset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="Reset"
+            android:text="@string/reset"
             android:visibility="gone"/>
         <Button
             android:id="@+id/btnQuit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="Quit"
+            android:text="@string/quit"
             android:visibility="gone"/>
 
         <TextView
@@ -178,7 +178,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Configure game and press Start"
+            android:text="@string/main_instructions"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             app:layout_constraintVertical_bias="0.5"

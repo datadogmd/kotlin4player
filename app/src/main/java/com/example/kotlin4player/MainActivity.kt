@@ -256,24 +256,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setStartPlayer() {
-        val startPlayerRadioGroup = findViewById<RadioGroup>(R.id.startPlayerRadioGroup)
-
-        // Get the ID of the currently selected RadioButton
-        //val selectedId = startPlayerRadioGroup.checkedRadioButtonId
-
-
-            // Assign index based on the ID (0-indexed)
-             currentPlayerIndex = startPlayerRadioGroup.checkedRadioButtonId
-/*        currentPlayerIndex = when (startPlayerRadioGroup.checkedRadioButtonId) {
-            R.id.radioPlayer1 -> 0
-            R.id.radioPlayer2 -> 1
-            R.id.radioPlayer3 -> 2
-            R.id.radioPlayer4 -> 3
-            else -> 0
-        }*/
-    }
-
     @SuppressLint("SetTextI18n")
     private fun startGame() {
         isGameFinished = false
@@ -338,6 +320,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onPlayerTimeOut(playerIndex: Int) {
+        val playerId: Int = playerIndex + 1
+        val playerTimeoutMsg = getString(R.string.timed_out_message, playerId)
         isGameFinished = true
         isGameRunning = false
         cancelActiveTimer()
@@ -354,7 +338,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        statusText.text = "Player ${playerIndex + 1} timed out!"
+        statusText.text = playerTimeoutMsg
+
     }
 
     private fun updateAllTimeTexts() {
