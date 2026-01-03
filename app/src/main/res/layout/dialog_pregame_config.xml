@@ -291,6 +291,44 @@
                     android:background="@color/radio_bg_d60d1e_alpha"
                     android:button="@android:color/transparent" />
             </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_starting_player"
+                android:layout_marginTop="8dp" />
+
+            <RadioGroup
+                android:id="@+id/startPlayerRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioPlayer1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/position_player_1"
+                    android:checked="true" />
+                <RadioButton
+                    android:id="@+id/radioPlayer2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/position_player_2" />
+
+                <RadioButton
+                    android:id="@+id/radioPlayer3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/position_player_3" />
+
+                <RadioButton
+                    android:id="@+id/radioPlayer4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/position_player_4" />
+            </RadioGroup>
+
         </LinearLayout>
 
         <LinearLayout
@@ -309,11 +347,11 @@
                 android:text="@string/cancel" />
 
             <Button
-                android:id="@+id/okButton"
+                android:id="@+id/startButton"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ok"
+                android:text="@string/start"
                 android:layout_marginStart="8dp" />
         </LinearLayout>
 

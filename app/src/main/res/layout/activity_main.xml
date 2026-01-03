@@ -154,10 +154,10 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/startButton"
+            android:id="@+id/configButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start" />
+            android:text="Configure" />
         <Button
             android:id="@+id/btnReset"
             android:layout_width="wrap_content"

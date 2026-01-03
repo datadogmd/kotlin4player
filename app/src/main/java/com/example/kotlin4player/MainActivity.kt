@@ -1,5 +1,6 @@
 package com.example.kotlin4player
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.media.AudioAttributes
 import android.media.SoundPool
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var playerZones: List<View>
     private lateinit var timeViews: List<TextView>
-    private lateinit var startButton: Button
+    private lateinit var configButton: Button
     private lateinit var btnQuit: Button
     private lateinit var btnReset: Button
     private lateinit var statusText: TextView
@@ -53,11 +54,14 @@ class MainActivity : AppCompatActivity() {
         initDefaultColors()
         initPlayerZoneClicks()
 
-        startButton.setOnClickListener {
+        configButton.setOnClickListener {
             if (!isGameRunning && !isGameFinished) {
                 showPreGameDialog()
             }
-            startButton.visibility=View.GONE
+
+            // only change visibility of these buttons after startButton is clicked
+
+            configButton.visibility=View.GONE
             btnReset.visibility=View.VISIBLE
             btnQuit.visibility=View.VISIBLE
         }
@@ -85,12 +89,15 @@ class MainActivity : AppCompatActivity() {
         val p3Time = findViewById<TextView>(R.id.player3Time)
         val p4Time = findViewById<TextView>(R.id.player4Time)
 
+        //val startPlayerRadioGroup = findViewById<RadioGroup>(R.id.startPlayerRadioGroup)
+
         playerZones = listOf(p1Zone, p2Zone, p3Zone, p4Zone)
         timeViews = listOf(p1Time, p2Time, p3Time, p4Time)
 
         btnQuit = findViewById(R.id.btnQuit)
         btnReset = findViewById(R.id.btnReset)
-        startButton = findViewById(R.id.startButton)
+        configButton = findViewById(R.id.configButton)
+
 
         statusText = findViewById(R.id.statusText)
     }
@@ -187,7 +194,7 @@ class MainActivity : AppCompatActivity() {
             dialog.dismiss()
         }
 
-        dialogView.findViewById<Button>(R.id.okButton).setOnClickListener {
+        dialogView.findViewById<Button>(R.id.startButton).setOnClickListener {
             val minutesText = timeInput.text.toString().trim()
             val minutes = minutesText.toLongOrNull() ?: DEFAULT_TIME_MINUTES
             val millis = minutes * 60_000L
@@ -204,10 +211,22 @@ class MainActivity : AppCompatActivity() {
 
             applyPlayerColors()
 
+            // select start player
+
+            val selectedId = dialogView.findViewById<RadioGroup>(R.id.startPlayerRadioGroup).checkedRadioButtonId
+
+            // Assign index based on the ID (0-indexed)
+            currentPlayerIndex = when (selectedId) {
+                R.id.radioPlayer1 -> 0
+                R.id.radioPlayer2 -> 1
+                R.id.radioPlayer3 -> 2
+                R.id.radioPlayer4 -> 3
+                else -> 0
+            }
+
             dialog.dismiss()
             startGame()
         }
-
         dialog.show()
     }
 
@@ -232,13 +251,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setStartPlayer() {
+        val startPlayerRadioGroup = findViewById<RadioGroup>(R.id.startPlayerRadioGroup)
+
+        // Get the ID of the currently selected RadioButton
+        //val selectedId = startPlayerRadioGroup.checkedRadioButtonId
+
+
+            // Assign index based on the ID (0-indexed)
+             currentPlayerIndex = startPlayerRadioGroup.checkedRadioButtonId
+/*        currentPlayerIndex = when (startPlayerRadioGroup.checkedRadioButtonId) {
+            R.id.radioPlayer1 -> 0
+            R.id.radioPlayer2 -> 1
+            R.id.radioPlayer3 -> 2
+            R.id.radioPlayer4 -> 3
+            else -> 0
+        }*/
+    }
+
+    @SuppressLint("SetTextI18n")
     private fun startGame() {
         isGameFinished = false
         isGameRunning = true
-        startButton.isEnabled = false
+        configButton.isEnabled = false
         statusText.text = "Game running. Tap active player to pass the move."
 
-        currentPlayerIndex = 0
+        // currentPlayerIndex = 0
+
         startTimerForCurrentPlayer()
         highlightActivePlayer()
     }
@@ -297,7 +336,7 @@ class MainActivity : AppCompatActivity() {
         isGameFinished = true
         isGameRunning = false
         cancelActiveTimer()
-        startButton.isEnabled = false
+        configButton.isEnabled = false
         playTimeoutSound()
 
         // Visually indicate timeout: dim others and keep timed-out as-is, plus border effect via alpha tweak
