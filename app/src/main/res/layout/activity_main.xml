@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:rotation="180"
-            android:text="Player 1"
+            android:text="@string/player_1"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:rotation="180"
-            android:text="Player 2"
+            android:text="@string/player_2"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -92,7 +92,7 @@
             android:id="@+id/player3Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Player 3"
+            android:text="@string/player_3"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             android:textSize="18sp" />
@@ -124,7 +124,7 @@
             android:id="@+id/player4Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Player 4"
+            android:text="@string/player_4"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             android:textSize="18sp" />

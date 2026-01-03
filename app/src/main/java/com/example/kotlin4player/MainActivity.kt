@@ -61,9 +61,9 @@ class MainActivity : AppCompatActivity() {
 
             // only change visibility of these buttons after startButton is clicked
 
-            configButton.visibility=View.GONE
+/*            configButton.visibility=View.GONE
             btnReset.visibility=View.VISIBLE
-            btnQuit.visibility=View.VISIBLE
+            btnQuit.visibility=View.VISIBLE*/
         }
 
         btnReset.setOnClickListener {
@@ -225,6 +225,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             dialog.dismiss()
+
+            configButton.visibility=View.GONE
+            btnReset.visibility=View.VISIBLE
+            btnQuit.visibility=View.VISIBLE
+
             startGame()
         }
         dialog.show()
