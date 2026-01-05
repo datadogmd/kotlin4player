@@ -46,10 +46,13 @@
             android:layout_marginTop="8dp">
 
             <!-- Player 1 -->
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/player1NameInput"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/player_1" />
+                android:inputType="text"
+                android:hint="@string/player_1"
+                android:layout_marginBottom="16dp" />
 
             <RadioGroup
                 android:id="@+id/player1ColorGroup"
@@ -107,11 +110,13 @@
             </RadioGroup>
 
             <!-- Player 2 -->
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/player2NameInput"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/player_2"
-                android:layout_marginTop="8dp" />
+                android:inputType="text"
+                android:hint="@string/player_2"
+                android:layout_marginBottom="16dp" />
 
             <RadioGroup
                 android:id="@+id/player2ColorGroup"
@@ -169,11 +174,13 @@
             </RadioGroup>
 
             <!-- Player 3 -->
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/player3NameInput"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/player_3"
-                android:layout_marginTop="8dp" />
+                android:inputType="text"
+                android:hint="@string/player_1"
+                android:layout_marginBottom="16dp" />
 
             <RadioGroup
                 android:id="@+id/player3ColorGroup"
@@ -231,11 +238,13 @@
             </RadioGroup>
 
             <!-- Player 4 -->
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/player4NameInput"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/player_4"
-                android:layout_marginTop="8dp" />
+                android:inputType="text"
+                android:hint="@string/player_1"
+                android:layout_marginBottom="16dp" />
 
             <RadioGroup
                 android:id="@+id/player4ColorGroup"
@@ -357,12 +366,3 @@
 
     </LinearLayout>
 </ScrollView>
-
-<!--
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</ScrollView>
--->

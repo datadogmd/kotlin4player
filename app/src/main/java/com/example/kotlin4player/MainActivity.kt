@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var playerZones: List<View>
     private lateinit var timeViews: List<TextView>
+    private lateinit var namesViews: List<TextView>
+
+    private lateinit var namesInput: List<EditText>
     private lateinit var configButton: Button
     private lateinit var btnQuit: Button
     private lateinit var btnReset: Button
@@ -59,11 +62,6 @@ class MainActivity : AppCompatActivity() {
                 showPreGameDialog()
             }
 
-            // only change visibility of these buttons after startButton is clicked
-
-/*            configButton.visibility=View.GONE
-            btnReset.visibility=View.VISIBLE
-            btnQuit.visibility=View.VISIBLE*/
         }
 
         btnReset.setOnClickListener {
@@ -89,15 +87,19 @@ class MainActivity : AppCompatActivity() {
         val p3Time = findViewById<TextView>(R.id.player3Time)
         val p4Time = findViewById<TextView>(R.id.player4Time)
 
-        //val startPlayerRadioGroup = findViewById<RadioGroup>(R.id.startPlayerRadioGroup)
+        val p1Name = findViewById<TextView>(R.id.player1Name)
+        val p2Name = findViewById<TextView>(R.id.player2Name)
+        val p3Name = findViewById<TextView>(R.id.player3Name)
+        val p4Name = findViewById<TextView>(R.id.player4Name)
+
 
         playerZones = listOf(p1Zone, p2Zone, p3Zone, p4Zone)
         timeViews = listOf(p1Time, p2Time, p3Time, p4Time)
+        namesViews = listOf(p1Name, p2Name, p3Name, p4Name)
 
         btnQuit = findViewById(R.id.btnQuit)
         btnReset = findViewById(R.id.btnReset)
         configButton = findViewById(R.id.configButton)
-
 
         statusText = findViewById(R.id.statusText)
     }
@@ -179,6 +181,13 @@ class MainActivity : AppCompatActivity() {
         val p3Group = dialogView.findViewById<RadioGroup>(R.id.player3ColorGroup)
         val p4Group = dialogView.findViewById<RadioGroup>(R.id.player4ColorGroup)
 
+        val p1NameInput = dialogView.findViewById<EditText>(R.id.player1NameInput)
+        val p2NameInput = dialogView.findViewById<EditText>(R.id.player2NameInput)
+        val p3NameInput = dialogView.findViewById<EditText>(R.id.player3NameInput)
+        val p4NameInput = dialogView.findViewById<EditText>(R.id.player4NameInput)
+
+        namesInput = listOf(p1NameInput, p2NameInput, p3NameInput, p4NameInput)
+
         // Preselect first color for all players to avoid invalid state
         p1Group.check(R.id.p1Color1)
         p2Group.check(R.id.p2Color2)
@@ -209,6 +218,8 @@ class MainActivity : AppCompatActivity() {
             playerColors[2] = mapCheckedIdToColorRes(p3Group.checkedRadioButtonId)
             playerColors[3] = mapCheckedIdToColorRes(p4Group.checkedRadioButtonId)
 
+            updatePlayerNames()
+
             applyPlayerColors()
 
             // select start player
@@ -235,6 +246,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+
     private fun mapCheckedIdToColorRes(checkedId: Int): Int {
         return when (checkedId) {
             R.id.p1Color1, R.id.p2Color1, R.id.p3Color1, R.id.p4Color1 -> R.color.color_f58027
@@ -256,14 +268,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun updatePlayerNames() {
+        // Update player names. Default is no name.
+        for (i in 0..3) {
+            namesViews[i].text = namesInput[i].text
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     private fun startGame() {
         isGameFinished = false
         isGameRunning = true
         configButton.isEnabled = false
-        statusText.text = "Game running. Tap active player to pass the move."
-
-        // currentPlayerIndex = 0
+        statusText.text = "Game running. Tap active player zone to end their turn."
 
         startTimerForCurrentPlayer()
         highlightActivePlayer()
@@ -339,7 +356,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         statusText.text = playerTimeoutMsg
-
     }
 
     private fun updateAllTimeTexts() {
