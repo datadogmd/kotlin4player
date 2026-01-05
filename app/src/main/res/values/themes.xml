@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-
+<!--<resources xmlns:tools="http://schemas.android.com/tools">-->
+<resources>
     <style name="Theme.Kotlin4Player" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/color_1c7aad</item>
         <item name="colorPrimaryVariant">@color/color_7026c9</item>

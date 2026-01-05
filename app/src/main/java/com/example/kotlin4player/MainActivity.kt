@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.media.AudioAttributes
 import android.media.SoundPool
-import android.os.Build
+// import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -12,6 +12,8 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+
+import java.util.Locale
 
 /**
  * Uses a single CountDownTimer instance to drive the currently active player.
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var namesInput: List<EditText>
     private lateinit var configButton: Button
+    private lateinit var abortButton: Button
     private lateinit var btnQuit: Button
     private lateinit var btnReset: Button
     private lateinit var statusText: TextView
@@ -62,6 +65,9 @@ class MainActivity : AppCompatActivity() {
                 showPreGameDialog()
             }
 
+        }
+        abortButton.setOnClickListener {
+            finishAndRemoveTask()
         }
 
         btnReset.setOnClickListener {
@@ -100,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         btnQuit = findViewById(R.id.btnQuit)
         btnReset = findViewById(R.id.btnReset)
         configButton = findViewById(R.id.configButton)
+        abortButton = findViewById(R.id.abortButton)
 
         statusText = findViewById(R.id.statusText)
     }
@@ -296,7 +303,10 @@ class MainActivity : AppCompatActivity() {
     private fun startGame() {
         isGameFinished = false
         isGameRunning = true
+        configButton.visibility = View.GONE
         configButton.isEnabled = false
+        abortButton.visibility = View.GONE
+        abortButton.isEnabled = false
         statusText.text = "Game running. Tap active player zone to end their turn."
 
         startTimerForCurrentPlayer()
@@ -358,9 +368,13 @@ class MainActivity : AppCompatActivity() {
         val playerTimeoutMsg = getString(R.string.timed_out_message, playerId)
         isGameFinished = true
         isGameRunning = false
-        cancelActiveTimer()
-        configButton.isEnabled = false
         playTimeoutSound()
+        cancelActiveTimer()
+        configButton.visibility = View.GONE
+        configButton.isEnabled = false
+        abortButton.visibility = View.GONE
+        abortButton.isEnabled = false
+
 
         // Visually indicate timeout: dim others and keep timed-out as-is, plus border effect via alpha tweak
         for (i in 0..3) {
@@ -386,7 +400,7 @@ class MainActivity : AppCompatActivity() {
         val totalSeconds = millis / 1000
         val minutes = totalSeconds / 60
         val seconds = totalSeconds % 60
-        val formatted = String.format("%d:%02d", minutes, seconds)
+        val formatted = "%2d:%02d".format(Locale.getDefault(), minutes, seconds)
         timeViews[playerIndex].text = formatted
     }
 
