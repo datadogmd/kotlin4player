@@ -104,7 +104,24 @@ class MainActivity : AppCompatActivity() {
         statusText = findViewById(R.id.statusText)
     }
 
+
     private fun initSoundPool() {
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(2)
+            .setAudioAttributes(audioAttributes)
+            .build()
+
+        tapSoundId = soundPool?.load(this, R.raw.tap, 1) ?: 0
+        timeoutSoundId = soundPool?.load(this, R.raw.time_out, 1) ?: 0
+    }
+
+
+/*    private fun initSoundPool() {
         soundPool = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val audioAttributes = AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
@@ -121,7 +138,7 @@ class MainActivity : AppCompatActivity() {
 
         tapSoundId = soundPool?.load(this, R.raw.tap, 1) ?: 0
         timeoutSoundId = soundPool?.load(this, R.raw.time_out, 1) ?: 0
-    }
+    }*/
 
     private fun initDefaultColors() {
         playerColors[0] = R.color.player1_default
