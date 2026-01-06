@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var abortButton: Button
     private lateinit var btnQuit: Button
     private lateinit var btnReset: Button
+
+    private lateinit var menuButton: Button
+
+    private lateinit var pauseButton: Button
     private lateinit var statusText: TextView
 
     private var playerTimesMillis = LongArray(4) { DEFAULT_TIME_MINUTES * 60_000L }
@@ -76,6 +80,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        menuButton.setOnClickListener {
+            if (isGameRunning || isGameFinished){
+                showPopupMenu()
+            }
+        }
+
+        pauseButton.setOnClickListener {
+
+        }
+
+
         btnQuit.setOnClickListener {
             finishAndRemoveTask()
         }
@@ -107,6 +122,8 @@ class MainActivity : AppCompatActivity() {
         btnReset = findViewById(R.id.btnReset)
         configButton = findViewById(R.id.configButton)
         abortButton = findViewById(R.id.abortButton)
+
+        menuButton = findViewById(R.id.menuButton)
 
         statusText = findViewById(R.id.statusText)
     }
@@ -262,14 +279,30 @@ class MainActivity : AppCompatActivity() {
             dialog.dismiss()
 
             configButton.visibility=View.GONE
-            btnReset.visibility=View.VISIBLE
-            btnQuit.visibility=View.VISIBLE
+            menuButton.visibility=View.VISIBLE
+/*            btnReset.visibility=View.VISIBLE
+            btnQuit.visibility=View.VISIBLE*/
 
             startGame()
         }
         dialog.show()
     }
 
+    private fun showPopupMenu() {
+    /*    val popupView = LayoutInflater.from(this)
+            .inflate(R.layout.popup_menu, null, false)
+
+        val popup = AlertDialog.Builder(this)
+            .setView(popupView)
+            .setCancelable(false)
+            .create()
+
+        popupView.findViewById<Button>(R.id.goBack).setOnClickListener {
+            popup.dismiss()
+        }
+        */
+
+    }
 
     private fun mapCheckedIdToColorRes(checkedId: Int): Int {
         return when (checkedId) {

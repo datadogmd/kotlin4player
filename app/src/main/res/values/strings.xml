@@ -14,7 +14,10 @@
     <string name="config">Config</string>
     <string name="start">START</string>
     <string name="cancel">Cancel</string>
+    <string name="go_back">Return</string>
     <string name="main_instructions">Configure game then press START</string>
+    <string name="menu_button">Menu</string>
+    <string name="pause_button">Pause</string>
     <string name="reset">Reset</string>
     <string name="quit">Quit</string>
     <string name="default_game_time_minutes">10</string>

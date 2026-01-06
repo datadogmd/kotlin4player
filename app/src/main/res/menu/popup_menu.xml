@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_pause"
+        android:title="pause" />
+    <item
+        android:id="@+id/action_reset"
+        android:title="reset" />
+    <item
+        android:id="@+id/action_quit"
+        android:title="quit" />
+</menu>

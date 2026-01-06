@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="GlobalButtonStyle" parent="Widget.MaterialComponents.Button">
+        <!-- Set a specific width (e.g., 150dp) -->
+        <item name="android:layout_width">100dp</item>
+        <!-- Ensure height is also defined as it's required for layout params -->
+        <item name="android:layout_height">wrap_content</item>
+        <!-- Add other common attributes like padding, margin, etc. -->
+    </style>
+</resources>
