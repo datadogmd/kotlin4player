@@ -19,12 +19,12 @@
     <color name="color_7026c9">#7026C9</color>
     <color name="color_d60d1e">#D60D1E</color>
 
-    <color name="color_f58027_selected">#40F58027</color>
-    <color name="color_f5d327_selected">#40F5D327</color>
-    <color name="color_33ad05_selected">#4033AD05</color>
-    <color name="color_1c7aad_selected">#401C7AAD</color>
-    <color name="color_7026c9_selected">#407026C9</color>
-    <color name="color_d60d1e_selected">#40D60D1E</color>
+    <color name="color_f58027_selected">#1AF58027</color>
+    <color name="color_f5d327_selected">#1AF5D327</color>
+    <color name="color_33ad05_selected">#1A33AD05</color>
+    <color name="color_1c7aad_selected">#1A1C7AAD</color>
+    <color name="color_7026c9_selected">#1A7026C9</color>
+    <color name="color_d60d1e_selected">#1AD60D1E</color>
 
     <!-- Default per-player colors (can reuse palette) -->
     <color name="player1_default">@color/color_f58027</color>

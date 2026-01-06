@@ -32,10 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var abortButton: Button
     private lateinit var btnQuit: Button
     private lateinit var btnReset: Button
-
-    private lateinit var menuButton: Button
-
-    private lateinit var pauseButton: Button
+    private lateinit var  mainMenuButton: Button
     private lateinit var statusText: TextView
 
     private var playerTimesMillis = LongArray(4) { DEFAULT_TIME_MINUTES * 60_000L }
@@ -80,17 +77,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        menuButton.setOnClickListener {
-            if (isGameRunning || isGameFinished){
-                showPopupMenu()
-            }
-        }
-
-        pauseButton.setOnClickListener {
-
-        }
-
-
         btnQuit.setOnClickListener {
             finishAndRemoveTask()
         }
@@ -118,12 +104,11 @@ class MainActivity : AppCompatActivity() {
         timeViews = listOf(p1Time, p2Time, p3Time, p4Time)
         namesViews = listOf(p1Name, p2Name, p3Name, p4Name)
 
-        btnQuit = findViewById(R.id.btnQuit)
+        btnQuit = findViewById(R.id.mainQuitButton)
         btnReset = findViewById(R.id.btnReset)
         configButton = findViewById(R.id.configButton)
         abortButton = findViewById(R.id.abortButton)
-
-        menuButton = findViewById(R.id.menuButton)
+        mainMenuButton = findViewById(R.id.mainMenuButton)
 
         statusText = findViewById(R.id.statusText)
     }
@@ -145,24 +130,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-/*    private fun initSoundPool() {
-        soundPool = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val audioAttributes = AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_GAME)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build()
-            SoundPool.Builder()
-                .setMaxStreams(2)
-                .setAudioAttributes(audioAttributes)
-                .build()
-        } else {
-            @Suppress("DEPRECATION")
-            SoundPool(2, android.media.AudioManager.STREAM_MUSIC, 0)
-        }
-
-        tapSoundId = soundPool?.load(this, R.raw.tap, 1) ?: 0
-        timeoutSoundId = soundPool?.load(this, R.raw.time_out, 1) ?: 0
-    }*/
 
     private fun initDefaultColors() {
         playerColors[0] = R.color.player1_default
@@ -279,30 +246,15 @@ class MainActivity : AppCompatActivity() {
             dialog.dismiss()
 
             configButton.visibility=View.GONE
-            menuButton.visibility=View.VISIBLE
-/*            btnReset.visibility=View.VISIBLE
-            btnQuit.visibility=View.VISIBLE*/
+            btnReset.visibility=View.VISIBLE
+            btnQuit.visibility=View.VISIBLE
+            mainMenuButton.visibility=View.VISIBLE
 
             startGame()
         }
         dialog.show()
     }
 
-    private fun showPopupMenu() {
-    /*    val popupView = LayoutInflater.from(this)
-            .inflate(R.layout.popup_menu, null, false)
-
-        val popup = AlertDialog.Builder(this)
-            .setView(popupView)
-            .setCancelable(false)
-            .create()
-
-        popupView.findViewById<Button>(R.id.goBack).setOnClickListener {
-            popup.dismiss()
-        }
-        */
-
-    }
 
     private fun mapCheckedIdToColorRes(checkedId: Int): Int {
         return when (checkedId) {
