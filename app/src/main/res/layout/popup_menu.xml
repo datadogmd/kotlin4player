@@ -1,53 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
-
     <LinearLayout
         android:id="@+id/popupMenu"
-        android:layout_width="120dp"
-        android:layout_height="216dp"
-        android:background="#66000000"
-        android:gravity="bottom|end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:orientation="vertical"
-        android:padding="8dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!--         android:gravity="bottom|end" -->
+        <!-- app:layout_constraintHorizontal_bias="0.9"> -->
+        <!-- app:layout_constraintStart_toStartOf="parent"> -->
 
         <Button
-            android:id="@+id/menuGoBackButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/goBack" />
-
-        <Button
+            style="@style/CornerButton"
             android:id="@+id/menuQuitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/quit" />
 
         <Button
+            style="@style/CornerButton"
             android:id="@+id/menuResetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reset" />
 
         <Button
+            style="@style/CornerButton"
             android:id="@+id/menuPauseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pauseButton" />
 
+        <Button
+            style="@style/CornerButton"
+            android:id="@+id/menuGoBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/goBack"/>
+
+        <!-- This was below layout_height:  android:layout_marginStart="4dp" -->
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

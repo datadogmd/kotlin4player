@@ -12,7 +12,7 @@
     <string name="position_player_3">P 3</string>
     <string name="position_player_4">P 4</string>
     <string name="config">Config</string>
-    <string name="goBack">Return</string>
+    <string name="goBack">Back</string>
     <string name="pauseButton">Pause</string>
     <string name="start">START</string>
     <string name="cancel">Cancel</string>

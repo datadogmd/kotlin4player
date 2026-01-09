@@ -7,8 +7,10 @@ import android.media.SoundPool
 // import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -30,13 +32,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var namesInput: List<EditText>
     private lateinit var configButton: Button
     private lateinit var abortButton: Button
-    private lateinit var btnQuit: Button
-    private lateinit var btnReset: Button
     private lateinit var  mainMenuButton: Button
+
     private lateinit var statusText: TextView
 
     private var playerTimesMillis = LongArray(4) { DEFAULT_TIME_MINUTES * 60_000L }
     private var currentPlayerIndex = -1
+
+    private var isGamePaused = false
     private var isGameRunning = false
     private var isGameFinished = false
 
@@ -71,15 +74,10 @@ class MainActivity : AppCompatActivity() {
             finishAndRemoveTask()
         }
 
-        btnReset.setOnClickListener {
-            if (isGameRunning || isGameFinished) {
-                showPreGameDialog()
-            }
+        mainMenuButton.setOnClickListener {
+            showPopupMenu()
         }
 
-        btnQuit.setOnClickListener {
-            finishAndRemoveTask()
-        }
         updateAllTimeTexts()
     }
 
@@ -99,13 +97,10 @@ class MainActivity : AppCompatActivity() {
         val p3Name = findViewById<TextView>(R.id.player3Name)
         val p4Name = findViewById<TextView>(R.id.player4Name)
 
-
         playerZones = listOf(p1Zone, p2Zone, p3Zone, p4Zone)
         timeViews = listOf(p1Time, p2Time, p3Time, p4Time)
         namesViews = listOf(p1Name, p2Name, p3Name, p4Name)
 
-        btnQuit = findViewById(R.id.mainQuitButton)
-        btnReset = findViewById(R.id.btnReset)
         configButton = findViewById(R.id.configButton)
         abortButton = findViewById(R.id.abortButton)
         mainMenuButton = findViewById(R.id.mainMenuButton)
@@ -178,6 +173,68 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showPopupMenu() {
+        val popupMenuView = LayoutInflater.from(this).inflate(R.layout.popup_menu, null, false)
+
+        val popupMenu = AlertDialog.Builder(this)
+            .setView(popupMenuView)
+            .setCancelable(false)
+            .create()
+
+        // menuGoBackButton.visibility=View.VISIBLE
+
+        popupMenuView.findViewById<Button>(R.id.menuGoBackButton).setOnClickListener {
+            popupMenu.dismiss()
+        }
+
+        popupMenuView.findViewById<Button>(R.id.menuQuitButton).setOnClickListener {
+            popupMenu.dismiss()
+            finishAndRemoveTask()
+        }
+
+        popupMenuView.findViewById<Button>(R.id.menuResetButton).setOnClickListener {
+            popupMenu.dismiss()
+            if (isGameRunning || isGameFinished) {
+                showPreGameDialog()
+            }
+        }
+
+        popupMenuView.findViewById<Button>(R.id.menuPauseButton).setOnClickListener {
+            popupMenu.dismiss()
+            onPause()
+
+        }
+        popupMenu.show()
+
+        // Set the window background to transparent
+        popupMenu.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        // 1. Get the window instance
+        val window = popupMenu.window
+
+        if (window != null) {
+            // 2. Set the Gravity to Bottom and Right
+            window.setGravity(Gravity.BOTTOM or Gravity.END)
+
+            // 3. Optional: Clear the "Dim" background if you want to see the UI behind it
+            // window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+
+            // 4. Adjust layout parameters for dimensions
+            val params = window.attributes
+            params.width = WindowManager.LayoutParams.WRAP_CONTENT
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT
+
+            // 5. Add margins/offsets from the edge
+            params.x = 0 // Horizontal offset from right
+            params.y = 0 // Vertical offset from bottom
+            // params.x = 20 // Horizontal offset from right
+            // params.y = 20 // Vertical offset from bottom
+
+            window.attributes = params
+        }
+    }
+
+
     private fun showPreGameDialog() {
         val dialogView = LayoutInflater.from(this)
             .inflate(R.layout.dialog_pregame_config, null, false)
@@ -246,8 +303,6 @@ class MainActivity : AppCompatActivity() {
             dialog.dismiss()
 
             configButton.visibility=View.GONE
-            btnReset.visibility=View.VISIBLE
-            btnQuit.visibility=View.VISIBLE
             mainMenuButton.visibility=View.VISIBLE
 
             startGame()
@@ -404,9 +459,12 @@ class MainActivity : AppCompatActivity() {
             // Pause timer and store remaining accurately
             val elapsed = System.currentTimeMillis() - activePlayerStartRealtime
             val newRemaining = (activePlayerStartRemaining - elapsed).coerceAtLeast(0L)
+            val playerPauseMsg = "Game Paused"
             playerTimesMillis[currentPlayerIndex] = newRemaining
             cancelActiveTimer()
             updateTimeText(currentPlayerIndex)
+            isGamePaused = true
+            statusText.text = playerPauseMsg
         }
     }
 

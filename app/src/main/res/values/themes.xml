@@ -10,6 +10,14 @@
         <item name="android:windowBackground">@color/black</item>
     </style>
 
+    <style name="CornerButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+
+<!--        <item name="android:textAllCaps">false</item>
+        <item name="android:backgroundTint">@color/purple_500</item>-->
+    </style>
+
 </resources>
 
 <!--

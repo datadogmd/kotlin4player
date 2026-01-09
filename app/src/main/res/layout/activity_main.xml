@@ -175,25 +175,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/quit" />
+
         <Button
-            android:id="@+id/btnReset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="@string/reset"
-            android:visibility="gone"/>
-        <Button
-            android:id="@+id/mainQuitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="@string/quit"
-            android:visibility="gone"/>
-        <Button
+            style="@style/CornerButton"
             android:id="@+id/mainMenuButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:text="@string/main_menu"
             android:visibility="gone"/>
 
