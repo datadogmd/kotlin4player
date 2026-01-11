@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
     private var isGameRunning = false
     private var isGameFinished = false
 
+    private var isReadyPlayerOne = false
+
     private var activeTimer: CountDownTimer? = null
     private var activePlayerStartRemaining: Long = 0L
     private var activePlayerStartRealtime: Long = 0L
@@ -152,6 +154,12 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        if (isReadyPlayerOne && index == currentPlayerIndex) {
+            isReadyPlayerOne = false
+            //startGame()
+            return
+        }
+
         if (index != currentPlayerIndex) {
             // Ignore taps on non-active players
             return
@@ -186,6 +194,10 @@ class MainActivity : AppCompatActivity() {
             .create()
 
         // menuGoBackButton.visibility=View.VISIBLE
+
+        if (isGamePaused) {
+            popupMenuView.findViewById<Button>(R.id.menuPauseButton).isEnabled = false
+        }
 
         popupMenuView.findViewById<Button>(R.id.menuGoBackButton).setOnClickListener {
             popupMenu.dismiss()
@@ -263,6 +275,10 @@ class MainActivity : AppCompatActivity() {
         p3Group.check(R.id.p3Color3)
         p4Group.check(R.id.p4Color4)
 
+        if (isGamePaused) {
+            isGamePaused = false
+        }
+
         val dialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .setCancelable(false)
@@ -309,6 +325,7 @@ class MainActivity : AppCompatActivity() {
             configButton.visibility=View.GONE
             mainMenuButton.visibility=View.VISIBLE
 
+            //readyPlayerOne()
             startGame()
         }
         dialog.show()
@@ -343,11 +360,26 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun readyPlayerOne() {
+        val readyPlayerOneMsg = getString(R.string.ready_player_one_message)
+        isReadyPlayerOne = true
+        isGameFinished = false
+        isGameRunning = true
+        configButton.visibility = View.GONE
+        configButton.isEnabled = false
+        abortButton.visibility = View.GONE
+        abortButton.isEnabled = false
+        highlightActivePlayer()
+        statusText.text = readyPlayerOneMsg
+
+    }
+
     //@SuppressLint("SetTextI18n")
     private fun startGame() {
         val gameRunningMsg = getString(R.string.game_running_message)
         isGameFinished = false
         isGameRunning = true
+
         configButton.visibility = View.GONE
         configButton.isEnabled = false
         abortButton.visibility = View.GONE
@@ -470,6 +502,7 @@ class MainActivity : AppCompatActivity() {
             cancelActiveTimer()
             updateTimeText(currentPlayerIndex)
             isGamePaused = true
+
             statusText.text = gamePausedMsg
         }
     }
