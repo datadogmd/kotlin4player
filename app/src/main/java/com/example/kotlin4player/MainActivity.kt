@@ -155,10 +155,14 @@ class MainActivity : AppCompatActivity() {
         if (index != currentPlayerIndex) {
             // Ignore taps on non-active players
             return
+        } else {
+            playTapSound()
+            if (isGamePaused) {
+                onResume()
+            } else {
+                advanceToNextPlayer()
+            }
         }
-
-        playTapSound()
-        advanceToNextPlayer()
     }
 
     private fun playTapSound() {
@@ -341,14 +345,15 @@ class MainActivity : AppCompatActivity() {
 
     //@SuppressLint("SetTextI18n")
     private fun startGame() {
+        val gameRunningMsg = getString(R.string.game_running_message)
         isGameFinished = false
         isGameRunning = true
         configButton.visibility = View.GONE
         configButton.isEnabled = false
         abortButton.visibility = View.GONE
         abortButton.isEnabled = false
-        val gameRunningInst = getString(R.string.game_running_instructions)
-        statusText.text = gameRunningInst
+
+        statusText.text = gameRunningMsg
 
         startTimerForCurrentPlayer()
         highlightActivePlayer()
@@ -471,10 +476,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        val gameRunningMsg = getString(R.string.game_running_message)
+        isGamePaused = false
         if (isGameRunning && !isGameFinished && currentPlayerIndex in 0..3) {
             activePlayerStartRemaining = playerTimesMillis[currentPlayerIndex]
             activePlayerStartRealtime = System.currentTimeMillis()
             startTimerForCurrentPlayer()
+            statusText.text = gameRunningMsg
         }
     }
 

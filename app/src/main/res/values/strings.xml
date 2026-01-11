@@ -17,7 +17,7 @@
     <string name="start">START</string>
     <string name="cancel">Cancel</string>
     <string name="main_instructions">Configure game then press START</string>
-    <string name="game_running_instructions">Game running. Tap active player zone to end their turn.</string>
+    <string name="game_running_message">Game running. Tap active player zone to end their turn.</string>
     <string name="game_paused_message">Game paused. Tap current player zone to restart their turn</string>
     <string name="main_menu">Menu</string>
     <string name="reset">Reset</string>
