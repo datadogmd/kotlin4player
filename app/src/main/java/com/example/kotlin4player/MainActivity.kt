@@ -339,7 +339,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    //@SuppressLint("SetTextI18n")
     private fun startGame() {
         isGameFinished = false
         isGameRunning = true
@@ -347,7 +347,8 @@ class MainActivity : AppCompatActivity() {
         configButton.isEnabled = false
         abortButton.visibility = View.GONE
         abortButton.isEnabled = false
-        statusText.text = "Game running. Tap active player zone to end their turn."
+        val gameRunningInst = getString(R.string.game_running_instructions)
+        statusText.text = gameRunningInst
 
         startTimerForCurrentPlayer()
         highlightActivePlayer()
@@ -459,12 +460,12 @@ class MainActivity : AppCompatActivity() {
             // Pause timer and store remaining accurately
             val elapsed = System.currentTimeMillis() - activePlayerStartRealtime
             val newRemaining = (activePlayerStartRemaining - elapsed).coerceAtLeast(0L)
-            val playerPauseMsg = "Game Paused"
+            val gamePausedMsg = getString(R.string.game_paused_message)
             playerTimesMillis[currentPlayerIndex] = newRemaining
             cancelActiveTimer()
             updateTimeText(currentPlayerIndex)
             isGamePaused = true
-            statusText.text = playerPauseMsg
+            statusText.text = gamePausedMsg
         }
     }
 
