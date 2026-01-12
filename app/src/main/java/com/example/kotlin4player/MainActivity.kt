@@ -155,7 +155,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (isReadyPlayerOne && index == currentPlayerIndex) {
-            isReadyPlayerOne = false
+/*            isReadyPlayerOne = false
+            playTapSound()
+            onResume()*/
             //startGame()
             return
         }
@@ -165,7 +167,7 @@ class MainActivity : AppCompatActivity() {
             return
         } else {
             playTapSound()
-            if (isGamePaused) {
+            if (isGamePaused || isReadyPlayerOne) {
                 onResume()
             } else {
                 advanceToNextPlayer()
@@ -325,8 +327,8 @@ class MainActivity : AppCompatActivity() {
             configButton.visibility=View.GONE
             mainMenuButton.visibility=View.VISIBLE
 
-            //readyPlayerOne()
-            startGame()
+            readyPlayerOne()
+            //startGame()
         }
         dialog.show()
     }
@@ -460,7 +462,7 @@ class MainActivity : AppCompatActivity() {
             if (i == playerIndex) {
                 zone.alpha = 1.0f
             } else {
-                zone.alpha = 0.3f
+                zone.alpha = 0.2f
             }
         }
 
@@ -515,6 +517,7 @@ class MainActivity : AppCompatActivity() {
             activePlayerStartRemaining = playerTimesMillis[currentPlayerIndex]
             activePlayerStartRealtime = System.currentTimeMillis()
             startTimerForCurrentPlayer()
+            isGameRunning = true
             statusText.text = gameRunningMsg
         }
     }
