@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var namesInput: List<EditText>
     private lateinit var configButton: Button
     private lateinit var abortButton: Button
-    private lateinit var  mainMenuButton: Button
+    private lateinit var mainMenuButton: Button
 
     private lateinit var statusText: TextView
 
@@ -127,7 +127,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     private fun initDefaultColors() {
         playerColors[0] = R.color.player1_default
         playerColors[1] = R.color.player2_default
@@ -150,15 +149,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onPlayerZoneClicked(index: Int) {
+        if (index == currentPlayerIndex) {
+            playTapSound()
+            if (isGamePaused) {
+                onResume()
+                return
+            }
+            if (isReadyPlayerOne) {
+                startGame()
+                return
+            }
+            if (isGameRunning) {
+                advanceToNextPlayer()
+            }
+        }
+
+
+
+
+    }
+    private fun onPlayerZoneClicked1(index: Int) {
         if (!isGameRunning || isGameFinished) {
             return
         }
 
         if (isReadyPlayerOne && index == currentPlayerIndex) {
-/*            isReadyPlayerOne = false
-            playTapSound()
-            onResume()*/
-            //startGame()
+            /*            isReadyPlayerOne = false
+                        playTapSound()
+                        onResume()*/
+            startGame()
             return
         }
 
@@ -167,13 +186,23 @@ class MainActivity : AppCompatActivity() {
             return
         } else {
             playTapSound()
-            if (isGamePaused || isReadyPlayerOne) {
+            if (isGamePaused) {
                 onResume()
-            } else {
-                advanceToNextPlayer()
+                return
             }
+            if (isReadyPlayerOne) {
+                startGame()
+                return
+            }
+            advanceToNextPlayer()
         }
+        /*            if (isGamePaused || isReadyPlayerOne) {
+                        onResume()
+                    } else {
+                        advanceToNextPlayer()
+                    }*/
     }
+
 
     private fun playTapSound() {
         if (tapSoundId != 0) {
@@ -311,7 +340,8 @@ class MainActivity : AppCompatActivity() {
 
             // select start player
 
-            val selectedId = dialogView.findViewById<RadioGroup>(R.id.startPlayerRadioGroup).checkedRadioButtonId
+            val selectedId =
+                dialogView.findViewById<RadioGroup>(R.id.startPlayerRadioGroup).checkedRadioButtonId
 
             // Assign index based on the ID (0-indexed)
             currentPlayerIndex = when (selectedId) {
@@ -324,11 +354,11 @@ class MainActivity : AppCompatActivity() {
 
             dialog.dismiss()
 
-            configButton.visibility=View.GONE
-            mainMenuButton.visibility=View.VISIBLE
+            configButton.visibility = View.GONE
+            mainMenuButton.visibility = View.VISIBLE
 
-            readyPlayerOne()
-            //startGame()
+            //readyPlayerOne()
+            startGame()
         }
         dialog.show()
     }
@@ -366,7 +396,7 @@ class MainActivity : AppCompatActivity() {
         val readyPlayerOneMsg = getString(R.string.ready_player_one_message)
         isReadyPlayerOne = true
         isGameFinished = false
-        isGameRunning = true
+        isGameRunning = false
         configButton.visibility = View.GONE
         configButton.isEnabled = false
         abortButton.visibility = View.GONE
@@ -381,6 +411,7 @@ class MainActivity : AppCompatActivity() {
         val gameRunningMsg = getString(R.string.game_running_message)
         isGameFinished = false
         isGameRunning = true
+        isReadyPlayerOne = false
 
         configButton.visibility = View.GONE
         configButton.isEnabled = false
@@ -462,7 +493,7 @@ class MainActivity : AppCompatActivity() {
             if (i == playerIndex) {
                 zone.alpha = 1.0f
             } else {
-                zone.alpha = 0.2f
+                zone.alpha = 0.3f
             }
         }
 
@@ -489,7 +520,7 @@ class MainActivity : AppCompatActivity() {
 
         for (i in 0..3) {
             val zone = playerZones[i]
-            zone.alpha = if (i == currentPlayerIndex) 1.0f else 0.6f
+            zone.alpha = if (i == currentPlayerIndex) 1.0f else 0.3f
         }
     }
 
@@ -503,6 +534,7 @@ class MainActivity : AppCompatActivity() {
             playerTimesMillis[currentPlayerIndex] = newRemaining
             cancelActiveTimer()
             updateTimeText(currentPlayerIndex)
+            isGameRunning = false
             isGamePaused = true
 
             statusText.text = gamePausedMsg
@@ -513,7 +545,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         val gameRunningMsg = getString(R.string.game_running_message)
         isGamePaused = false
-        if (isGameRunning && !isGameFinished && currentPlayerIndex in 0..3) {
+        if (!isGameRunning && !isGameFinished && currentPlayerIndex in 0..3) {
             activePlayerStartRemaining = playerTimesMillis[currentPlayerIndex]
             activePlayerStartRealtime = System.currentTimeMillis()
             startTimerForCurrentPlayer()
